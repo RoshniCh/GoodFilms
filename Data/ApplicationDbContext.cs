@@ -17,5 +17,6 @@ namespace GoodFilms.Data
             IOptions<OperationalStoreOptions> operationalStoreOptions) : base(options, operationalStoreOptions)
         {
         }
+        public DbSet<Movies> Movies { get; set; }
     }
 }
