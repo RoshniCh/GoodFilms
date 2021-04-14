@@ -36,4 +36,21 @@ export async function getLatestMovies(): Promise<MovieListResponse> {
       throw new Error(await response.json());
     }
     return await response.json();
+}
+export async function getBestMovies(): Promise<MovieListResponse> {
+  const response = await fetch(`/Home/BestMovieList/`);
+    
+  if (!response.ok) {
+    throw new Error(await response.json());
   }
+  return await response.json();
+}
+
+export async function getWorstMovies(): Promise<MovieListResponse> {
+  const response = await fetch(`/Home/WorstMovieList/`);
+    
+  if (!response.ok) {
+    throw new Error(await response.json());
+  }
+  return await response.json();
+}
