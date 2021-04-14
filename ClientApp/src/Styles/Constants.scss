@@ -4,9 +4,32 @@ $main-header-font: 'Mystery Quest', cursive;
 $subheader-font: 'Mystery Quest', sans-serif;
 $body-font: 'Raleway', Arial, sans-serif;
 
-$colour1 : #EA160A;
-$colour2 : #EE6400;
-$colour3 : #FFBF07;
-$colour4 : #FFF65D;
+$accent-color-dark : #EA160A;
+$dark-bg : #EE6400;
+$light-bg : #FFBF07;
+$light1-bg : #FFF65D;
 $colour5 : #59AF3B;
 $colour6 : #52327B;
+$dark-text : #494b68;
+$light-text:#e2e2e2;
+
+@mixin font($font-size, $family: $body-font, $line-height: 1.5, $color: $dark-text) {
+    font-family: $family;
+    font-size: $font-size;
+    line-height: $line-height;
+    color: $color;
+    text-decoration: none;
+  }
+
+  @mixin titleFont() {
+    @include font(40px, $main-header-font) ;
+  }
+  
+  @mixin subtitleFont() {
+    @include font(28px, $subheader-font);
+  }
+  
+  @mixin bodyFont() {
+    @include font(20px);
+    font-weight: 300;
+  }

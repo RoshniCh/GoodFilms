@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.EntityFrameworkCore;
 using GoodFilms.Data;
 using GoodFilms.Models;
+using GoodFilms.Repositories;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -49,6 +50,8 @@ namespace GoodFilms
             {
                 configuration.RootPath = "ClientApp/build";
             });
+
+            services.AddTransient<IMovieRepo, MovieRepo>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

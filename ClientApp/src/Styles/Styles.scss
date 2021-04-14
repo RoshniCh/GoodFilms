@@ -1,0 +1,43 @@
+@import './Constants';
+
+.title {
+    @include titleFont();
+}
+
+.sub-heading {
+    @include subtitleFont();
+}
+
+.body-text {
+    @include bodyFont();
+}
+
+div {
+    background-color: $light-bg;
+    color: $dark-text;
+}
+
+/* Wrap page content in a content-container div for it to have a lighter background than the rest of the body */
+.content-container, .content-container div {
+    background-color: $dark-bg;
+    color: $dark-text;
+}
+
+// .content-container, .content-container div {
+//     background-color: $dark-bg;
+//     color: $dark-text;
+// }
+
+.content-container {
+    padding: 25px;
+    border-radius: 40px;
+    margin: 25px;
+    min-width: 100%;
+}
+
+.page-split {
+    padding: 25px;
+    border-radius: 40px;
+    margin: 25px;
+    min-width: 50%;
+}
