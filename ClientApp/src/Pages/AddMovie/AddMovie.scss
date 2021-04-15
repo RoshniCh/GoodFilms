@@ -1,0 +1,29 @@
+@import '../../Styles/Constants.scss'; 
+@import '../../Styles/Styles.scss'; 
+@import "~bootstrap/scss/bootstrap";
+
+.label-styling {
+    padding-left: 10px;
+    padding-right: 10px;
+    margin:10px;
+    border-radius: 5px;
+}
+
+.form-div {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.form-label {
+    @include formLabel;
+  }
+
+  .form-input {
+    @include formInput;
+  }
+
+  .form-button {
+    background-color: $button-bg;
+    color: $dark-text;
+    border-radius: 10px;
+  }

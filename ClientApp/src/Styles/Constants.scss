@@ -7,13 +7,17 @@ $body-font: 'Raleway', Arial, sans-serif;
 $accent-color-dark : #EA160A;
 $dark-bg : #EE6400;
 $light-bg : #FFBF07;
-$light1-bg : #FFF65D;
-$colour5 : #59AF3B;
-$colour6 : #52327B;
+$button-bg : #FFF65D;
+$navbar-bg : #59AF3B;
+$navbar2-bg : #59AF3B;
+$navbar1-bg : #52327B;
 $dark-text : #494b68;
 $light-text:#e2e2e2;
 
-@mixin font($font-size, $family: $body-font, $line-height: 1.5, $color: $dark-text) {
+$spacing-medium: 20px;
+$two-column-min-pixels:1000px;
+
+@mixin font($font-size, $family: $body-font, $color: $dark-text, $line-height: 1.5 ) {
     font-family: $family;
     font-size: $font-size;
     line-height: $line-height;
@@ -22,14 +26,31 @@ $light-text:#e2e2e2;
   }
 
   @mixin titleFont() {
-    @include font(40px, $main-header-font) ;
+    @include font(28px, $main-header-font,$dark-text ) ;
   }
   
   @mixin subtitleFont() {
-    @include font(28px, $subheader-font);
+    @include font(24px, $subheader-font);
   }
   
   @mixin bodyFont() {
-    @include font(20px);
+    @include font(16px);
     font-weight: 300;
+  }
+
+  @mixin formLabel() {
+    @include bodyFont;
+    display: block;
+    margin: $spacing-medium 0;
+  }
+
+  @mixin formInput() {
+    @include bodyFont;
+    display: block;
+    width: 50%;
+    border: 1px solid gray;
+    border-radius: 5px;
+    padding-left: 10px;
+    background-color: #FFFFFF;
+    outline: none;
   }

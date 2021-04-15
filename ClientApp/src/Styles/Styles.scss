@@ -2,6 +2,7 @@
 
 .title {
     @include titleFont();
+    
 }
 
 .sub-heading {
@@ -34,7 +35,16 @@ div {
     margin: 25px;
     min-width: 100%;
 }
+.content-sub-container, .content-sub-container div {
+    background-color: $dark-bg;
+    color: $dark-text;
+}
 
+.content-sub-container {
+    padding: 15px;
+    border-radius: 40px;
+    margin: 15px;
+}
 .page-split {
     padding: 25px;
     border-radius: 40px;

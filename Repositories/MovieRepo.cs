@@ -1,4 +1,6 @@
 using GoodFilms.Models.Response;
+using GoodFilms.Models.Request;
+using GoodFilms.Models;
 using GoodFilms.Data;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
@@ -10,6 +12,10 @@ namespace GoodFilms.Repositories
         public MovieListResponse getLatestMovieList();
         public MovieListResponse getBestMovieList();
         public MovieListResponse getWorstMovieList();
+        public Movies AddMovie (MovieRequest create);
+        public MovieListResponse getLanguageMovieList(string lang);
+        
+
     }
     public class MovieRepo : IMovieRepo
     {
@@ -48,6 +54,38 @@ namespace GoodFilms.Repositories
                                                 .ToList();
             return worstMovieList;
         }
+        public Movies AddMovie(MovieRequest create)
+        {
+            var insertResponse =
+                _context
+                    .Movies
+                    .Add(new Movies
+                    {
+                        Title = create.Title,
+                        Language = create.Language,
+                        Genre = create.Genre,
+                        Director = create.Director,
+                        Actor = create.Actor,
+                        Actress = create.Actress,
+                        ReleaseDate = create.ReleaseDate,
+                        Year = create.ReleaseDate.Year,
+                        Likes = 0,
+                        Dislikes = 0
+                    });
+            _context.SaveChanges();
 
+            return insertResponse.Entity;
+        }
+        public MovieListResponse getLanguageMovieList(string lang)
+        {
+            MovieListResponse languageMovieList = new MovieListResponse();
+            languageMovieList.MovieList = _context.Movies
+                                                .Where(m=>m.Language == lang)
+                                                .OrderByDescending(m => m.Likes)
+                                                .Take(10)
+                                                .ToList();
+            return languageMovieList;
+        }
+        
     }
 }
