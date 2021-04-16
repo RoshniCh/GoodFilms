@@ -14,6 +14,7 @@ namespace GoodFilms.Repositories
         public MovieListResponse getWorstMovieList();
         public Movies AddMovie (MovieRequest create);
         public MovieListResponse getLanguageMovieList(string lang);
+        public MovieListResponse getGenreMovieList(string genre);
         
 
     }
@@ -85,6 +86,17 @@ namespace GoodFilms.Repositories
                                                 .Take(10)
                                                 .ToList();
             return languageMovieList;
+        }
+
+        public MovieListResponse getGenreMovieList(string genre)
+        {
+            MovieListResponse genreMovieList = new MovieListResponse();
+            genreMovieList.MovieList = _context.Movies
+                                                .Where(m=>m.Genre == genre)
+                                                .OrderByDescending(m => m.Likes)
+                                                .Take(10)
+                                                .ToList();
+            return genreMovieList;
         }
         
     }

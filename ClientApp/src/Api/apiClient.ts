@@ -84,8 +84,16 @@ export async function submitMovie(newMovie: NewMovie) {
 }
 
 export async function getMoviesbyLanguage(lang : string): Promise<MovieListResponse> {
-  // const param = lang;
   const response = await fetch(`/Discover/Language/${lang}`);
+  
+  if (!response.ok) {
+    throw new Error(await response.json());
+  }
+  return await response.json();
+}
+
+export async function getMoviesbyGenre(genre : string): Promise<MovieListResponse> {
+  const response = await fetch(`/Discover/Genre/${genre}`);
   
   if (!response.ok) {
     throw new Error(await response.json());

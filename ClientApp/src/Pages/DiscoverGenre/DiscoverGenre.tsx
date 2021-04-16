@@ -1,14 +1,14 @@
 import React, { FormEvent, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import './DiscoverLanguage.scss';
-import { MovieListResponse, MovieResponse, getMoviesbyLanguage } from "../../Api/apiClient";
+import './DiscoverGenre.scss';
+import { MovieListResponse, MovieResponse, getMoviesbyGenre } from "../../Api/apiClient";
 
-export function LangaugeMovieTable(data: MovieResponse): JSX.Element {
+export function GenreMovieTable(data: MovieResponse): JSX.Element {
   
     return (
       <tr>
         <td>{data.title}</td>
-        <td>{data.genre}</td>
+        <td>{data.language}</td>
         <td className ="hide-column-mobile" >{data.director}</td>
         <td className ="hide-column-mobile" >{data.actor}</td>
         <td className ="hide-column-mobile" >{data.actress}</td>
@@ -19,17 +19,17 @@ export function LangaugeMovieTable(data: MovieResponse): JSX.Element {
     );
 }
 
-export function DiscoverLanguage() : JSX.Element {
+export function DiscoverGenre() : JSX.Element {
     
-    const [selectedLanguage, setSelectedLangauge] = useState("Hindi");
-    const [languageMovies, setLanguageMovies] = useState<MovieListResponse | null>(null);
+    const [selectedGenre, setSelectedGenre] = useState("Thriller");
+    const [genreMovies, setGenreMovies] = useState<MovieListResponse | null>(null);
     
     useEffect(() => {
-        getMoviesbyLanguage(selectedLanguage)
-        .then(data => setLanguageMovies(data));
-    }, [selectedLanguage]);
+        getMoviesbyGenre(selectedGenre)
+        .then(data => setGenreMovies(data));
+    }, [selectedGenre]);
 
-    if (!languageMovies) {
+    if (!genreMovies) {
         return <div className="content-container"> <p className="body-text">Waiting for data!</p></div>;
     }
     return (
@@ -38,17 +38,18 @@ export function DiscoverLanguage() : JSX.Element {
             <h1 className="title">GoodFilms - The Home of Indian Movies!</h1>
             </div>
             <div className="content-sub-container">
-                <h2 className="sub-heading"> Discover Top Rated Movies by Language</h2>
+                <h2 className="sub-heading"> Discover Top Rated Movies by Genre</h2>
                 <div className="button-container">
-                    <button className={selectedLanguage == "Hindi" ? "form-selected-button" : "form-button"} onClick={() => setSelectedLangauge("Hindi")}>Hindi</button>
-                    <button className={selectedLanguage == "Tamil" ? "form-selected-button" : "form-button"} onClick={() => setSelectedLangauge("Tamil")}>Tamil</button>
-                    <button className={selectedLanguage == "Malayalam" ? "form-selected-button" : "form-button"} onClick={() => setSelectedLangauge("Malayalam")}>Malayalam</button>
+                    <button className={selectedGenre == "Thriller" ? "form-selected-button" : "form-button"} onClick={() => setSelectedGenre("Thriller")}>Thriller</button>
+                    <button className={selectedGenre == "Comedy" ? "form-selected-button" : "form-button"} onClick={() => setSelectedGenre("Comedy")}>Comedy</button>
+                    <button className={selectedGenre == "Romance" ? "form-selected-button" : "form-button"} onClick={() => setSelectedGenre("Romance")}>Romance</button>
+                    <button className={selectedGenre == "Drama" ? "form-selected-button" : "form-button"} onClick={() => setSelectedGenre("Drama")}>Drama</button>
                 </div>
                 <table className="table body-text latest-movie-container">
                     <thead>
                     <tr>
                         <th scope="col">Title</th>
-                        <th scope="col">Genre</th>
+                        <th scope="col">Language</th>
                         <th className ="hide-column-mobile" scope="col">Director</th>
                         <th className ="hide-column-mobile" scope="col">Actor</th>
                         <th className ="hide-column-mobile" scope="col">Actress</th>
@@ -58,7 +59,7 @@ export function DiscoverLanguage() : JSX.Element {
                     </tr>
                     </thead>
                     <tbody>
-                        {languageMovies.movieList?.map((x) => <LangaugeMovieTable {...x} />)}
+                        {genreMovies.movieList?.map((x) => <GenreMovieTable {...x} />)}
                     </tbody>
                 </table>
             </div>

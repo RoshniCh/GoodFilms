@@ -5,6 +5,7 @@ import { Home } from './components/Home';
 import { Homepage } from './Pages/Homepage/Homepage';
 import { AddMovie } from './Pages/AddMovie/AddMovie';
 import { DiscoverLanguage } from './Pages/DiscoverLanguage/DiscoverLanguage';
+import { DiscoverGenre } from './Pages/DiscoverGenre/DiscoverGenre';
 import { FetchData } from './components/FetchData';
 import { Counter } from './components/Counter';
 import AuthorizeRoute from './components/api-authorization/AuthorizeRoute';
@@ -22,6 +23,7 @@ export default class App extends Component {
         <Route exact path='/' component={Homepage} />
         <AuthorizeRoute exact path='/AddMovie' component={AddMovie} />
         <Route exact path='/DiscoverLanguage' component={DiscoverLanguage} />
+        <Route exact path='/DiscoverGenre' component={DiscoverGenre} />
         <AuthorizeRoute path='/fetch-data' component={FetchData} />
         <Route path={ApplicationPaths.ApiAuthorizationPrefix} component={ApiAuthorizationRoutes} />
       </Layout>

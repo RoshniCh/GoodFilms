@@ -7,29 +7,27 @@ using GoodFilms.Repositories;
 using Microsoft.AspNetCore.Authorization;
 
 namespace GoodFilms.Controllers {
-    [Route("Admin")]
-    public class MovieController : ControllerBase {
+    [Route("Discover")]
+    public class DiscoverController : ControllerBase {
         private readonly IMovieRepo _movies;
-        public MovieController(IMovieRepo movies)
+        public DiscoverController(IMovieRepo movies)
         {
             _movies = movies;
         }
-        [Authorize]
-        [HttpPost("AddMovie")]
-        public IActionResult AddMovie([FromBody] MovieRequest newMovie)
+        [HttpGet("Language/{lang}")]
+        public ActionResult<MovieListResponse> LanguageMovieList([FromRoute] string lang)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+            MovieListResponse languageMovieList = _movies.getLanguageMovieList(lang);
+            return languageMovieList;
+        } 
 
-            var movie = _movies.AddMovie(newMovie);
-
-            var url = Url.Action("GetById", new { id = movie.Id });
-            var movieCreated = new MovieResponse(movie);
-
-            return Created(url, movieCreated);
-        }
+        [HttpGet("Genre/{genre}")]
+        public ActionResult<MovieListResponse> GenreMovieList([FromRoute] string genre)
+        {
+            MovieListResponse genreMovieList = _movies.getGenreMovieList(genre);
+            return genreMovieList;
+        } 
+        
         
     }
 }
