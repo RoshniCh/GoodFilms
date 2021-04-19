@@ -39,6 +39,11 @@ $two-column-min-pixels:1000px;
     font-weight: 300;
   }
 
+  @mixin searchFont() {
+    @include font(12px);
+    font-weight: 300;
+  }
+
   @mixin formLabel() {
     @include bodyFont;
     display: block;
@@ -48,6 +53,21 @@ $two-column-min-pixels:1000px;
   @mixin formInput() {
     @include bodyFont;
     display: block;
+    width: 50%;
+    border: 1px solid gray;
+    border-radius: 5px;
+    padding-left: 10px;
+    background-color: #FFFFFF;
+    outline: none;
+  }
+
+  @mixin searchLabel() {
+    @include searchFont;
+    margin: $spacing-medium 0;
+  }
+
+  @mixin searchInput() {
+    @include searchFont;
     width: 50%;
     border: 1px solid gray;
     border-radius: 5px;

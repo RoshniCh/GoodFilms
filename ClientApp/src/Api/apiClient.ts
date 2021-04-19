@@ -3,19 +3,6 @@ import authService from '../components/api-authorization/AuthorizeService'
 export interface MovieListResponse {
     movieList: MovieResponse[];
   }
-
-  // export enum language {
-  //   Hindi,
-  //   Tamil,
-  //   Malayalam
-  // }
-
-  // export enum genre {
-  //   Thriller,
-  //   Comedy,
-  //   Romance,
-  //   Drama
-  // }
   
   export interface MovieResponse {
     id: number;
@@ -98,5 +85,11 @@ export async function getMoviesbyGenre(genre : string): Promise<MovieListRespons
   if (!response.ok) {
     throw new Error(await response.json());
   }
+  return await response.json();
+}
+
+export async function searchMovies(title :string, language: string, genre : string, director :string, actor : string,
+  actress : string, releasedate: string): Promise<MovieListResponse> {
+  const response = await fetch(`/Search?title=${title}&language=${language}&genre=${genre}&director=${director}&actor=${actor}&actress=${actress}&releasedate=${releasedate}`);
   return await response.json();
 }

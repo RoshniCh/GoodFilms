@@ -4,6 +4,7 @@ using GoodFilms.Models;
 using GoodFilms.Data;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
+using System;
 
 namespace GoodFilms.Repositories
 {
@@ -15,6 +16,7 @@ namespace GoodFilms.Repositories
         public Movies AddMovie (MovieRequest create);
         public MovieListResponse getLanguageMovieList(string lang);
         public MovieListResponse getGenreMovieList(string genre);
+        public MovieListResponse getSearchMovieList(MovieRequest searchMovie);
         
 
     }
@@ -97,6 +99,36 @@ namespace GoodFilms.Repositories
                                                 .Take(10)
                                                 .ToList();
             return genreMovieList;
+        }
+
+        public MovieListResponse getSearchMovieList(MovieRequest searchMovie)
+        {
+            MovieListResponse searchMovieList = new MovieListResponse();
+            var movies = _context.Movies.AsQueryable();
+            if (!String.IsNullOrEmpty(searchMovie.Title)){
+                movies = movies.Where(m=>m.Title.ToLower().Contains(searchMovie.Title.ToLower()));
+            }
+            if (!String.IsNullOrEmpty(searchMovie.Language)){
+                movies = movies.Where(m=>m.Language == searchMovie.Language);
+            }
+            if (!String.IsNullOrEmpty(searchMovie.Genre)){
+                movies = movies.Where(m=>m.Genre == searchMovie.Genre);
+            }
+            if (!String.IsNullOrEmpty(searchMovie.Director)){
+                movies = movies.Where(m=>m.Director.ToLower().Contains(searchMovie.Director.ToLower()));
+            }
+            if (!String.IsNullOrEmpty(searchMovie.Actor)){
+                movies = movies.Where(m=>m.Actor.ToLower().Contains(searchMovie.Actor.ToLower()));
+            }
+            if (!String.IsNullOrEmpty(searchMovie.Actress)){
+                movies = movies.Where(m=>m.Actress.ToLower().Contains(searchMovie.Actress.ToLower()));
+            }
+            if ((searchMovie.ReleaseDate) != default(DateTime)){
+                movies = movies.Where(m=>m.ReleaseDate == searchMovie.ReleaseDate);
+            }
+            movies = movies.OrderBy(m => m.Likes);
+            searchMovieList.MovieList = movies.ToList();
+            return searchMovieList;
         }
         
     }

@@ -2,6 +2,7 @@ import React, { FormEvent, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import './DiscoverGenre.scss';
 import { MovieListResponse, MovieResponse, getMoviesbyGenre } from "../../Api/apiClient";
+// import authService from '../../components/api-authorization/AuthorizeService';
 
 export function GenreMovieTable(data: MovieResponse): JSX.Element {
   
@@ -23,11 +24,20 @@ export function DiscoverGenre() : JSX.Element {
     
     const [selectedGenre, setSelectedGenre] = useState("Thriller");
     const [genreMovies, setGenreMovies] = useState<MovieListResponse | null>(null);
+    const [loggedIn, setLoggedIn] = useState(false)
     
     useEffect(() => {
         getMoviesbyGenre(selectedGenre)
         .then(data => setGenreMovies(data));
     }, [selectedGenre]);
+
+    // useEffect(() => {
+    //     async function checkLoggedIn(){
+    //         var userLoggedIn = await authService.isAuthenticated();
+    //         setLoggedIn(userLoggedIn);
+    //     }
+    //     checkLoggedIn();
+    // }, [])
 
     if (!genreMovies) {
         return <div className="content-container"> <p className="body-text">Waiting for data!</p></div>;
@@ -44,6 +54,7 @@ export function DiscoverGenre() : JSX.Element {
                     <button className={selectedGenre == "Comedy" ? "form-selected-button" : "form-button"} onClick={() => setSelectedGenre("Comedy")}>Comedy</button>
                     <button className={selectedGenre == "Romance" ? "form-selected-button" : "form-button"} onClick={() => setSelectedGenre("Romance")}>Romance</button>
                     <button className={selectedGenre == "Drama" ? "form-selected-button" : "form-button"} onClick={() => setSelectedGenre("Drama")}>Drama</button>
+                    {/* <button className={loggedIn == true ?  "form-button" : "form-button-hide"} onClick={() => setSelectedGenre("Drama")}>Admin</button> */}
                 </div>
                 <table className="table body-text latest-movie-container">
                     <thead>
