@@ -30,6 +30,20 @@ namespace GoodFilms.Controllers {
 
             return Created(url, movieCreated);
         }
+
+        [HttpPost("UpdateLike/{Id}")]
+        public Movies UpdateLikeMovie([FromRoute] int Id)
+        {
+            Movies likedMovie = _movies.UpdateLike(Id);
+            return likedMovie;
+        } 
         
+
+        [HttpPost("UpdateDislike/{Id}")]
+        public Movies UpdateDislikeMovie([FromRoute] int Id)
+        {
+            Movies dislikedMovie = _movies.UpdateDislike(Id);
+            return dislikedMovie;
+        } 
     }
 }

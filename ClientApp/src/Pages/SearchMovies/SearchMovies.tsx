@@ -1,10 +1,26 @@
 import React, { FormEvent, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { searchMovies, MovieListResponse, MovieResponse } from "../../Api/apiClient";
+import { searchMovies, MovieListResponse, MovieResponse, MovieLike, MovieDislike } from "../../Api/apiClient";
 import './SearchMovies.scss';
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import { faUndo, faTrashAlt, faCheck, faSearch } from '@fortawesome/free-solid-svg-icons';
+// import Glyphicon from 'react-bootstrap/lib/Glyphicon';
+
 
 export function SearchMovieTable(data: MovieResponse): JSX.Element {
+
+    const [likeClicked, setLikeClicked] = useState(false);
+    const [dislikeClicked, setDislikeClicked] = useState(false);
   
+    function MovieLikeRequest(id: number) {
+        MovieLike(id)
+        .then(() =>setLikeClicked(true));
+    }
+    function MovieDislikeRequest(id: number) {
+        MovieDislike(id)
+        .then(() =>setDislikeClicked(true));
+    }
+
     return (
       <tr>
         <td>{data.title}</td>
@@ -15,6 +31,14 @@ export function SearchMovieTable(data: MovieResponse): JSX.Element {
         <td>{data.releaseDate}</td>
         <td className ="hide-column-mobile" >{data.likes}</td>
         <td className ="hide-column-mobile" >{data.dislikes}</td>
+        <td>
+            <button className="like-dislike-button" type="submit" onClick={() => MovieLikeRequest(data.id)} disabled={likeClicked} aria-disabled={likeClicked}>
+                Like
+            </button>
+            <button className="like-dislike-button" type="submit" onClick={() => MovieDislikeRequest(data.id)} disabled={dislikeClicked} aria-disabled={dislikeClicked}>
+                Dislike
+            </button>
+        </td>
        </tr>
     );
 }
@@ -70,6 +94,7 @@ export function SearchMovies() : JSX.Element {
                             <th scope="col">Release Date</th>
                             <th className ="hide-column-mobile" scope="col">Likes</th>
                             <th className ="hide-column-mobile" scope="col">Dislikes</th>
+                            <th></th>
                         </tr>
                         </thead>
                         <tbody>

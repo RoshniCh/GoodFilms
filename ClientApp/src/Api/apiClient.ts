@@ -93,3 +93,26 @@ export async function searchMovies(title :string, language: string, genre : stri
   const response = await fetch(`/Search?title=${title}&language=${language}&genre=${genre}&director=${director}&actor=${actor}&actress=${actress}&releasedate=${releasedate}`);
   return await response.json();
 }
+
+
+export async function MovieLike(Id: number): Promise<MovieResponse> {
+  const response = await fetch(`/Admin/UpdateLike/${Id}`, {
+    method: "POST"});
+
+  if (!response.ok) {
+    throw new Error(await response.json());
+  }
+
+  return await response.json();
+}
+
+export async function MovieDislike(Id: number): Promise<MovieResponse> {
+  const response = await fetch(`/Admin/UpdateDislike/${Id}`, {
+    method: "POST"});
+
+  if (!response.ok) {
+    throw new Error(await response.json());
+  }
+
+  return await response.json();
+}

@@ -17,6 +17,8 @@ namespace GoodFilms.Repositories
         public MovieListResponse getLanguageMovieList(string lang);
         public MovieListResponse getGenreMovieList(string genre);
         public MovieListResponse getSearchMovieList(MovieRequest searchMovie);
+        public Movies UpdateLike(int Id);
+        public Movies UpdateDislike(int Id);
         
 
     }
@@ -126,10 +128,35 @@ namespace GoodFilms.Repositories
             if ((searchMovie.ReleaseDate) != default(DateTime)){
                 movies = movies.Where(m=>m.ReleaseDate == searchMovie.ReleaseDate);
             }
-            movies = movies.OrderBy(m => m.Likes);
+            movies = movies.OrderByDescending(m => m.Likes);
             searchMovieList.MovieList = movies.ToList();
             return searchMovieList;
         }
         
+        public Movies UpdateLike(int Id)
+        {
+
+            var movieToLike = _context.Movies
+                            .Where(m=>m.Id == Id)
+                            .SingleOrDefault();
+            movieToLike.Likes = movieToLike.Likes + 1;
+            var likedMovie =  _context.Update<Movies>(movieToLike);
+            _context.SaveChanges();
+            return likedMovie.Entity;
+        }
+
+        public Movies UpdateDislike(int Id)
+        {
+
+            var movieToDislike = _context.Movies
+                            .Where(m=>m.Id == Id)
+                            .SingleOrDefault();
+            movieToDislike.Dislikes = movieToDislike.Dislikes + 1;
+            var dislikedMovie =  _context.Update<Movies>(movieToDislike);
+            _context.SaveChanges();
+            return dislikedMovie.Entity;
+        }
+
+
     }
 }
