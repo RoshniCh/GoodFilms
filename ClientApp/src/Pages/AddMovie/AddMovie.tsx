@@ -37,7 +37,7 @@ export function AddMovie() : JSX.Element {
         <div className="content-container">
         <p className="body-text">Form submitted successfully!</p>
         <p className="body-text">Your movie is now added!</p>
-        <button onClick={() => setStatus("READY")}>Submit another movie?</button>
+        <button className="form-button" onClick={() => setStatus("READY")}>Submit another movie?</button>
         <br></br>
         <Link to="/">Return to Homepage?</Link>
         </div>

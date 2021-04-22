@@ -141,3 +141,14 @@ export async function getMovieById(id : number): Promise<MovieResponse> {
   }
   return await response.json();
 }
+
+export async function MovieDelete(Id: number): Promise<MovieResponse> {
+  const response = await fetch(`/Admin/DeleteMovie/${Id}`, {
+    method: "POST"});
+
+  if (!response.ok) {
+    throw new Error(await response.json());
+  }
+
+  return await response.json();
+}

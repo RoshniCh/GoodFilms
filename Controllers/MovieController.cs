@@ -60,5 +60,13 @@ namespace GoodFilms.Controllers {
             Movies movieDetails = _movies.getMovieById(id);
             return movieDetails;
         } 
+
+
+        [HttpPost("DeleteMovie/{Id}")]
+        public Movies DeleteMovie([FromRoute] int Id)
+        {
+            Movies deletedMovie = _movies.DeleteMovie(Id);
+            return deletedMovie;
+        } 
     }
 }

@@ -8,6 +8,7 @@ import { DiscoverLanguage } from './Pages/DiscoverLanguage/DiscoverLanguage';
 import { DiscoverGenre } from './Pages/DiscoverGenre/DiscoverGenre';
 import { SearchMovies } from './Pages/SearchMovies/SearchMovies';
 import { UpdateMovie } from './Pages/UpdateMovie/UpdateMovie';
+import { Social } from './Pages/Social/Social';
 import { FetchData } from './components/FetchData';
 import { Counter } from './components/Counter';
 import AuthorizeRoute from './components/api-authorization/AuthorizeRoute';
@@ -30,6 +31,7 @@ export default class App extends Component {
         <AuthorizeRoute path='/fetch-data' component={FetchData} />
         <AuthorizeRoute path='/UpdateMovie/:id' component={UpdateMovie} />
         <Route path={ApplicationPaths.ApiAuthorizationPrefix} component={ApiAuthorizationRoutes} />
+        <Route exact path='/Social' component={Social} />
       </Layout>
     );
   }

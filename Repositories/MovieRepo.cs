@@ -21,6 +21,7 @@ namespace GoodFilms.Repositories
         public Movies UpdateDislike(int Id);
         public Movies UpdateMovie(Movies movieToUpdate);
         public Movies getMovieById(int Id);
+        public Movies DeleteMovie(int Id);
     }
     public class MovieRepo : IMovieRepo
     {
@@ -171,6 +172,17 @@ namespace GoodFilms.Repositories
                             .Where(m=>m.Id == Id)
                             .SingleOrDefault();
             return movieDetails;
+        }
+
+        public Movies DeleteMovie(int Id)
+        {
+
+            var movieToDelete = _context.Movies
+                            .Where(m=>m.Id == Id)
+                            .SingleOrDefault();
+            var deletedMovie =  _context.Remove<Movies>(movieToDelete);
+            _context.SaveChanges();
+            return deletedMovie.Entity;
         }
     }
 }

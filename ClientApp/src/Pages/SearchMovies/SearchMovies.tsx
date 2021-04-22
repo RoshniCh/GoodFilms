@@ -1,6 +1,6 @@
 import React, { FormEvent, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { searchMovies, MovieListResponse, MovieResponse, MovieLike, MovieDislike } from "../../Api/apiClient";
+import { searchMovies, MovieListResponse, MovieResponse, MovieLike, MovieDislike, MovieDelete } from "../../Api/apiClient";
 import './SearchMovies.scss';
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // import { faUndo, faTrashAlt, faCheck, faSearch } from '@fortawesome/free-solid-svg-icons';
@@ -12,6 +12,7 @@ export function SearchMovieTable(data: MovieResponse): JSX.Element {
 
     const [likeClicked, setLikeClicked] = useState(false);
     const [dislikeClicked, setDislikeClicked] = useState(false);
+    const [deleteClicked, setDeleteClicked] = useState(false);
     const [loggedIn, setLoggedIn] = useState(false)
 
     useEffect(() => {
@@ -29,6 +30,10 @@ export function SearchMovieTable(data: MovieResponse): JSX.Element {
     function MovieDislikeRequest(id: number) {
         MovieDislike(id)
         .then(() =>setDislikeClicked(true));
+    }
+    function MovieDeleteRequest(id: number) {
+        MovieDelete(id)
+        .then(() =>setDeleteClicked(true));
     }
 
     return (
@@ -51,8 +56,11 @@ export function SearchMovieTable(data: MovieResponse): JSX.Element {
         </td>
         <td>
             <Link to={`/UpdateMovie/${data.id}`}>
-            <button className={loggedIn == true ?  "form-button-search" : "form-button-hide"}>Update</button>
+            <button className={loggedIn == true ?  "form-button-search" : "form-button-hide"} disabled={deleteClicked} aria-disabled={deleteClicked}>Update</button>
             </Link>
+            <button className={loggedIn == true ?  "form-button-search" : "form-button-hide"} type="submit" onClick={() => MovieDeleteRequest(data.id)} disabled={deleteClicked} aria-disabled={deleteClicked}>
+                Delete
+            </button>
         </td>
        </tr>
     );
@@ -139,7 +147,7 @@ export function SearchMovies() : JSX.Element {
             </label>
             <label className="search-label">
                 Langauge
-                <select className="search-input" name="language" onChange={(event) => setLanguage(event.target.value)} required>
+                <select className="search-input" name="language" onChange={(event) => setLanguage(event.target.value)}>
                     <option value="" selected disabled>Please choose one</option>
                     <option value="Hindi">Hindi</option>
                     {/* <option value="Hindi" {(language=="Hindi")? 'selected':''}>Hindi</option> */}
