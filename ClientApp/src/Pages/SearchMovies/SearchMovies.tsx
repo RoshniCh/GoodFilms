@@ -5,12 +5,22 @@ import './SearchMovies.scss';
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // import { faUndo, faTrashAlt, faCheck, faSearch } from '@fortawesome/free-solid-svg-icons';
 // import Glyphicon from 'react-bootstrap/lib/Glyphicon';
+import authService from '../../components/api-authorization/AuthorizeService';
 
 
 export function SearchMovieTable(data: MovieResponse): JSX.Element {
 
     const [likeClicked, setLikeClicked] = useState(false);
     const [dislikeClicked, setDislikeClicked] = useState(false);
+    const [loggedIn, setLoggedIn] = useState(false)
+
+    useEffect(() => {
+        async function checkLoggedIn(){
+            var userLoggedIn = await authService.isAuthenticated();
+            setLoggedIn(userLoggedIn);
+        }
+        checkLoggedIn();
+    }, [])
   
     function MovieLikeRequest(id: number) {
         MovieLike(id)
@@ -39,12 +49,14 @@ export function SearchMovieTable(data: MovieResponse): JSX.Element {
                 Dislike
             </button>
         </td>
+        <td>
+            <Link to={`/UpdateMovie/${data.id}`}>
+            <button className={loggedIn == true ?  "form-button-search" : "form-button-hide"}>Update</button>
+            </Link>
+        </td>
        </tr>
     );
 }
-
-
-
 
 export function SearchMovies() : JSX.Element {
     type FormStatus = "READY" | "SUBMITTING" | "ERROR" | "FINISHED";
@@ -95,6 +107,7 @@ export function SearchMovies() : JSX.Element {
                             <th className ="hide-column-mobile" scope="col">Likes</th>
                             <th className ="hide-column-mobile" scope="col">Dislikes</th>
                             <th></th>
+                            <th></th>
                         </tr>
                         </thead>
                         <tbody>
@@ -126,12 +139,13 @@ export function SearchMovies() : JSX.Element {
             </label>
             <label className="search-label">
                 Langauge
-                    <select className="search-input" name="language" onChange={(event) => setLanguage(event.target.value)}>
-                        <option value="" disabled selected>Please choose one</option>
-                        <option value="Hindi">Hindi</option>
-                        <option value="Tamil">Tamil</option>
-                        <option value="Malayalam">Malayalam</option>
-                    </select>
+                <select className="search-input" name="language" onChange={(event) => setLanguage(event.target.value)} required>
+                    <option value="" selected disabled>Please choose one</option>
+                    <option value="Hindi">Hindi</option>
+                    {/* <option value="Hindi" {(language=="Hindi")? 'selected':''}>Hindi</option> */}
+                    <option value="Tamil">Tamil</option>
+                    <option value="Malayalam">Malayalam</option>
+                </select>
             </label>
             <label className="search-label">
                     Genre

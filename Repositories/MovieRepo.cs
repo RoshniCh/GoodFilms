@@ -19,8 +19,8 @@ namespace GoodFilms.Repositories
         public MovieListResponse getSearchMovieList(MovieRequest searchMovie);
         public Movies UpdateLike(int Id);
         public Movies UpdateDislike(int Id);
-        
-
+        public Movies UpdateMovie(Movies movieToUpdate);
+        public Movies getMovieById(int Id);
     }
     public class MovieRepo : IMovieRepo
     {
@@ -156,7 +156,21 @@ namespace GoodFilms.Repositories
             _context.SaveChanges();
             return dislikedMovie.Entity;
         }
+        public Movies UpdateMovie(Movies movieToUpdate)
+        {
+            movieToUpdate.Year = movieToUpdate.ReleaseDate.Year;
+            var updatedMovie =  _context.Update<Movies>(movieToUpdate);
+            _context.SaveChanges();
+            return updatedMovie.Entity;
+        }
 
+        public Movies getMovieById(int Id)
+        {
 
+            var movieDetails = _context.Movies
+                            .Where(m=>m.Id == Id)
+                            .SingleOrDefault();
+            return movieDetails;
+        }
     }
 }

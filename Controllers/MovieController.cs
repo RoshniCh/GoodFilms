@@ -45,5 +45,20 @@ namespace GoodFilms.Controllers {
             Movies dislikedMovie = _movies.UpdateDislike(Id);
             return dislikedMovie;
         } 
+
+        [Authorize]
+        [HttpPost("UpdateMovie")]
+        public ActionResult UpdateMovie([FromBody] Movies movieToUpdate)
+        {
+            var updatedMovie = _movies.UpdateMovie(movieToUpdate);
+            return Ok(updatedMovie);
+        }
+
+        [HttpGet("MovieById/{id}")]
+        public ActionResult<Movies> MovieById([FromRoute] int id)
+        {
+            Movies movieDetails = _movies.getMovieById(id);
+            return movieDetails;
+        } 
     }
 }

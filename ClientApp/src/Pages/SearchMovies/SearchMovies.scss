@@ -30,6 +30,12 @@
     border-radius: 10px;
   }
 
+  .form-button-search {
+    background-color: $button-bg;
+    color: $dark-text;
+    border-radius: 10px;
+  }
+
   .search-label {
     @include searchLabel;
   }
@@ -57,4 +63,15 @@
     color: black;
     border-radius: 5px;
     font-size:7px;
+  }
+
+  .form-button-search {
+    background-color: $button-bg;
+    color: $dark-text;
+    border-radius: 5px;
+    font-size:9px;
+  }
+
+  .form-button-hide {
+    display : none;
   }

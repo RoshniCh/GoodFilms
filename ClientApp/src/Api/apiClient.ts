@@ -116,3 +116,28 @@ export async function MovieDislike(Id: number): Promise<MovieResponse> {
 
   return await response.json();
 }
+
+export async function updateMovie(movieToUpdate: MovieResponse) {
+  const token = await authService.getAccessToken();
+  const response = await fetch(`/Admin/UpdateMovie`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${token}`,
+    },
+    body: JSON.stringify(movieToUpdate),
+  });
+
+  if (!response.ok) {
+    throw new Error(await response.json());
+  }
+}
+
+export async function getMovieById(id : number): Promise<MovieResponse> {
+  const response = await fetch(`/Admin/MovieById/${id}`);
+  
+  if (!response.ok) {
+    throw new Error(await response.json());
+  }
+  return await response.json();
+}
