@@ -31,6 +31,16 @@ export function AddMovie() : JSX.Element {
           .then(() => setStatus("FINISHED"))
           .catch(() => setStatus("ERROR"));
       }
+
+      function clearSearch() {
+        setTitle("");
+        setLanguage("");
+        setGenre("");
+        setDirector("");
+        setActor("");
+        setActress("");
+        setReleasedate("");
+    }
     
     if (status === "FINISHED") {
     return (
@@ -64,7 +74,7 @@ export function AddMovie() : JSX.Element {
                         <label className="form-label">
                             Langauge
                             <select className="form-input" name="language" onChange={(event) => setLanguage(event.target.value)} required>
-                                <option value="" disabled selected>Please choose one</option>
+                                <option value="" selected>Please choose one</option>
                                 <option value="Hindi">Hindi</option>
                                 <option value="Tamil">Tamil</option>
                                 <option value="Malayalam">Malayalam</option>
@@ -75,7 +85,7 @@ export function AddMovie() : JSX.Element {
                         <label className="form-label">
                             Genre
                             <select className="form-input" name="genre" onChange={(event) => setGenre(event.target.value)} required>
-                                <option value="" disabled selected>Please choose one</option>
+                                <option value="" selected>Please choose one</option>
                                 <option value="Thriller">Thriller</option>
                                 <option value="Comedy">Comedy</option>
                                 <option value="Romance">Romance</option>
@@ -114,6 +124,9 @@ export function AddMovie() : JSX.Element {
                     </div><br/>
                     <button className="form-button" type="submit">
                         Submit Movie
+                    </button>
+                    <button className="form-button" type="reset" onClick={() => clearSearch()}>
+                        Clear
                     </button>
                 </form>
             </div>
