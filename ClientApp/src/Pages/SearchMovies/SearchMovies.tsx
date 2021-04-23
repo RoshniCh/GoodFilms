@@ -77,6 +77,7 @@ export function SearchMovies() : JSX.Element {
     const [actor, setActor] = useState("");
     const [actress, setActress] = useState("");
     const [releasedate, setReleasedate] = useState("");
+    const [year, setYear] = useState("");
 
     const [formStatus, setFormStatus] = useState<FormStatus>("READY");
     const [pageStatus, setPageStatus] = useState<PageStatus>("INITIAL");
@@ -93,11 +94,22 @@ export function SearchMovies() : JSX.Element {
           actor,
           actress,
           releasedate,
+          year,
         )
           .then(data => setSearchMovieList(data))
           .catch(() => setFormStatus("ERROR"))
           .then(() => setPageStatus("RESULTS"))
           .then(() => setFormStatus("READY"));
+    }
+    function clearSearch() {
+        setTitle("");
+        setLanguage("");
+        setGenre("");
+        setDirector("");
+        setActor("");
+        setActress("");
+        setReleasedate("");
+        setYear("");
     }
 
     function results () {
@@ -148,7 +160,7 @@ export function SearchMovies() : JSX.Element {
             <label className="search-label">
                 Langauge
                 <select className="search-input" name="language" onChange={(event) => setLanguage(event.target.value)}>
-                    <option value="" selected disabled>Please choose one</option>
+                    <option value="" selected>Please choose one</option>
                     <option value="Hindi">Hindi</option>
                     {/* <option value="Hindi" {(language=="Hindi")? 'selected':''}>Hindi</option> */}
                     <option value="Tamil">Tamil</option>
@@ -158,7 +170,7 @@ export function SearchMovies() : JSX.Element {
             <label className="search-label">
                     Genre
                     <select className="search-input" name="genre" onChange={(event) => setGenre(event.target.value)}>
-                        <option value="" disabled selected>Please choose one</option>
+                        <option value="" selected>Please choose one</option>
                         <option value="Thriller">Thriller</option>
                         <option value="Comedy">Comedy</option>
                         <option value="Romance">Romance</option>
@@ -182,8 +194,15 @@ export function SearchMovies() : JSX.Element {
                 Lead Actress
                 <input className="search-input" value={actress} onChange={(event) => setActress(event.target.value)}/>
             </label>
+            <label className="search-label">
+                Year
+                <input type = "number" className="search-input" value={year} onChange={(event) => setYear(event.target.value)}/>
+            </label>
             <button className="form-button" type="submit">
                 Search
+            </button>
+            <button className="form-button" type="reset" onClick={() => clearSearch()}>
+                Clear
             </button>
         </form>
     
@@ -208,7 +227,7 @@ export function SearchMovies() : JSX.Element {
                     <label className="search-label">
                         Langauge
                             <select className="search-input" name="language" onChange={(event) => setLanguage(event.target.value)}>
-                                <option value="" disabled selected>Please choose one</option>
+                                <option value="" selected>Please choose one</option>
                                 <option value="Hindi">Hindi</option>
                                 <option value="Tamil">Tamil</option>
                                 <option value="Malayalam">Malayalam</option>
@@ -217,7 +236,7 @@ export function SearchMovies() : JSX.Element {
                     <label className="search-label">
                             Genre
                             <select className="search-input" name="genre" onChange={(event) => setGenre(event.target.value)}>
-                                <option value="" disabled selected>Please choose one</option>
+                                <option value="" selected>Please choose one</option>
                                 <option value="Thriller">Thriller</option>
                                 <option value="Comedy">Comedy</option>
                                 <option value="Romance">Romance</option>
@@ -241,8 +260,15 @@ export function SearchMovies() : JSX.Element {
                         Lead Actress
                         <input className="search-input" value={actress} onChange={(event) => setActress(event.target.value)}/>
                     </label>
+                    <label className="search-label">
+                        Year
+                        <input type = "number" className="search-input" value={year} onChange={(event) => setYear(event.target.value)}/>
+                    </label>
                     <button className="form-button" type="submit">
                         Search
+                    </button>
+                    <button className="form-button" type="reset" onClick={() => clearSearch()}>
+                        Clear
                     </button>
                 </form>
             </div>

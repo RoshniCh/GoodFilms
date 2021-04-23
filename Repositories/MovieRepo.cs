@@ -129,6 +129,9 @@ namespace GoodFilms.Repositories
             if ((searchMovie.ReleaseDate) != default(DateTime)){
                 movies = movies.Where(m=>m.ReleaseDate == searchMovie.ReleaseDate);
             }
+            if ((searchMovie.Year) != 0){
+                movies = movies.Where(m=>m.Year == searchMovie.Year);
+            }
             movies = movies.OrderByDescending(m => m.Likes);
             searchMovieList.MovieList = movies.ToList();
             return searchMovieList;

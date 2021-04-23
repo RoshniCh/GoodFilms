@@ -24,6 +24,7 @@ return (
             <h2 className="sub-heading"> Listen to popular Radio </h2><br/>
             <h2 className="sub-heading"> Hits Of Bollywood </h2>
             <iframe
+                    width="500px"
                     src='https://liveonlineradio.net/hits-of-bollywood'
                     allow="accelerometer; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
@@ -31,6 +32,7 @@ return (
             </iframe><br/><br/>
             <h2 className="sub-heading"> Vividh Bharathi!! </h2>
             <iframe
+                    width="500px"
                     src='https://liveonlineradio.net/vividh-bharti-online'
                     allow="accelerometer; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
@@ -38,6 +40,7 @@ return (
             </iframe><br/><br/>
             <h2 className="sub-heading"> Radio Mango </h2>
             <iframe
+                    width="500px"
                     src='https://onlineradiofm.in/stations/mango'
                     allow="accelerometer; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen

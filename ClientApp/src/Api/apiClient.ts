@@ -89,8 +89,8 @@ export async function getMoviesbyGenre(genre : string): Promise<MovieListRespons
 }
 
 export async function searchMovies(title :string, language: string, genre : string, director :string, actor : string,
-  actress : string, releasedate: string): Promise<MovieListResponse> {
-  const response = await fetch(`/Search?title=${title}&language=${language}&genre=${genre}&director=${director}&actor=${actor}&actress=${actress}&releasedate=${releasedate}`);
+  actress : string, releasedate: string, year: string): Promise<MovieListResponse> {
+  const response = await fetch(`/Search?title=${title}&language=${language}&genre=${genre}&director=${director}&actor=${actor}&actress=${actress}&releasedate=${releasedate}&year=${year}`);
   return await response.json();
 }
 

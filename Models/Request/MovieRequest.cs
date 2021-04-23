@@ -13,6 +13,7 @@ namespace GoodFilms.Models.Request
         public string Actor { get; set; }
         public string Actress { get; set; }
         public DateTime ReleaseDate { get; set; }
+        public int Year { get; set; }
        
     }
 
