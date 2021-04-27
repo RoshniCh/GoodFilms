@@ -75,3 +75,33 @@
   .form-button-hide {
     display : none;
   }
+
+  .pagination{
+    position: relative;
+    left: 50%;
+    font-size: x-large;
+    padding-top: 10px;
+    width: fit-content;
+  
+    .page{
+      padding:5px
+    }
+    .previous-button,.next-button{
+      color: $light-text;
+      padding: 5px
+    }
+    .previous-button{
+      :hover > & {
+        cursor: pointer;
+        
+      }
+    }
+    
+    .next-button{
+      :hover > & {
+        cursor: pointer;
+        
+      }
+    }
+   
+  }

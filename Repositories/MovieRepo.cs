@@ -132,7 +132,10 @@ namespace GoodFilms.Repositories
             if ((searchMovie.Year) != 0){
                 movies = movies.Where(m=>m.Year == searchMovie.Year);
             }
-            movies = movies.OrderByDescending(m => m.Likes);
+            searchMovieList.TotalNumberOfMovies = movies.Count();
+            movies = movies.OrderByDescending(m => m.Likes)
+                            .Skip((searchMovie.PageNumber-1)*searchMovie.PageSize)
+                            .Take(searchMovie.PageSize);
             searchMovieList.MovieList = movies.ToList();
             return searchMovieList;
         }

@@ -78,6 +78,8 @@ export function SearchMovies() : JSX.Element {
     const [actress, setActress] = useState("");
     const [releasedate, setReleasedate] = useState("");
     const [year, setYear] = useState("");
+    const [pageNumber, setPageNumber] = useState(1);
+    const [pageSize, setPageSize] = useState(5);
 
     const [formStatus, setFormStatus] = useState<FormStatus>("READY");
     const [pageStatus, setPageStatus] = useState<PageStatus>("INITIAL");
@@ -86,6 +88,7 @@ export function SearchMovies() : JSX.Element {
     function submitSearch(event: FormEvent) {
         event.preventDefault();
         setFormStatus("SUBMITTING");
+        setPageNumber(1);
         searchMovies(
           title,
           language,
@@ -95,6 +98,8 @@ export function SearchMovies() : JSX.Element {
           actress,
           releasedate,
           year,
+          pageNumber,
+          pageSize,
         )
           .then(data => setSearchMovieList(data))
           .catch(() => setFormStatus("ERROR"))
@@ -110,6 +115,50 @@ export function SearchMovies() : JSX.Element {
         setActress("");
         setReleasedate("");
         setYear("");
+    }
+    function previousPageButton(){
+        return(
+          <a className="previous-button" onClick={() => SearchPrev()} > &lt; </a>
+        )
+    }
+    function SearchPrev() {
+        
+        searchMovies(
+          title,
+          language,
+          genre,
+          director,
+          actor,
+          actress,
+          releasedate,
+          year,
+          pageNumber-1,
+          pageSize,
+        )
+          .then(data => setSearchMovieList(data));
+          setPageNumber(pageNumber-1);
+    }
+    function nextPageButton(){
+        return(
+          <a className="next-button" onClick={() => SearchNext()} > &gt; </a>
+        )
+    }
+    function SearchNext() {
+        
+        searchMovies(
+          title,
+          language,
+          genre,
+          director,
+          actor,
+          actress,
+          releasedate,
+          year,
+          pageNumber+1,
+          pageSize,
+        )
+          .then(data => setSearchMovieList(data));
+          setPageNumber(pageNumber+1);
     }
 
     function results () {
@@ -134,6 +183,12 @@ export function SearchMovies() : JSX.Element {
                             {searchMovieList?.movieList?.map((x) => <SearchMovieTable {...x} />)}
                         </tbody>
                     </table>
+                    <div className="pagination">
+                    {pageNumber > 1? previousPageButton(): "" }
+                    <p>{pageNumber}</p>
+                    <p>{searchMovieList?.totalNumberOfMovies}</p>
+                    {searchMovieList?.totalNumberOfMovies && searchMovieList?.totalNumberOfMovies - ((pageNumber-1)*pageSize) > 1 ? nextPageButton() :""}
+                    </div>
                 </div>
         );
     } 

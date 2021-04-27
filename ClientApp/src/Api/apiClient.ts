@@ -2,6 +2,7 @@ import authService from '../components/api-authorization/AuthorizeService'
 
 export interface MovieListResponse {
     movieList: MovieResponse[];
+    totalNumberOfMovies: number;
   }
   
   export interface MovieResponse {
@@ -89,8 +90,8 @@ export async function getMoviesbyGenre(genre : string): Promise<MovieListRespons
 }
 
 export async function searchMovies(title :string, language: string, genre : string, director :string, actor : string,
-  actress : string, releasedate: string, year: string): Promise<MovieListResponse> {
-  const response = await fetch(`/Search?title=${title}&language=${language}&genre=${genre}&director=${director}&actor=${actor}&actress=${actress}&releasedate=${releasedate}&year=${year}`);
+  actress : string, releasedate: string, year: string, pageNumber: number, pageSize: number): Promise<MovieListResponse> {
+  const response = await fetch(`/Search?title=${title}&language=${language}&genre=${genre}&director=${director}&actor=${actor}&actress=${actress}&releasedate=${releasedate}&year=${year}&pageNumber=${pageNumber}&pageSize=${pageSize}`);
   return await response.json();
 }
 

@@ -14,6 +14,8 @@ namespace GoodFilms.Models.Request
         public string Actress { get; set; }
         public DateTime ReleaseDate { get; set; }
         public int Year { get; set; }
+        public int PageNumber { get; set; }
+        public int PageSize { get; set; }
        
     }
 

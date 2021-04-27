@@ -8,5 +8,6 @@ namespace GoodFilms.Models.Response
     public class MovieListResponse
     {
         public List<Movies> MovieList { get; set; }
+        public int TotalNumberOfMovies { get; set; }
     }
 }
